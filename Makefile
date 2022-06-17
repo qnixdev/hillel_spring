@@ -12,13 +12,13 @@ help:
 
 init:
 	-@mkdir -p ./.docker/data/postgres
-	@docker-compose -f ./.docker-compose.yaml --env-file ./.docker/.env up -d --build
+	@docker-compose -f ./docker-compose.yaml --env-file ./.docker/.env up -d --build
 
 up:
-	@docker-compose -f ./.docker-compose.yaml --env-file ./.docker/.env up -d
+	@docker-compose -f ./docker-compose.yaml --env-file ./.docker/.env up -d
 
 down:
-	@docker-compose -f ./.docker-compose.yaml --env-file ./.docker/.env stop
+	@docker-compose -f ./docker-compose.yaml --env-file ./.docker/.env stop
 
 clean:
 	-@docker rm $$(docker stop hillel-postgres)
