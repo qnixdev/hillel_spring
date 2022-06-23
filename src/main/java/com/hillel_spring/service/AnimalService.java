@@ -1,36 +1,32 @@
 package com.hillel_spring.service;
 
 import com.hillel_spring.model.Animal;
-import com.hillel_spring.model.Person;
+import com.hillel_spring.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class AnimalService {
+    private final AnimalRepository animalRepository;
     private final PersonService personService;
 
     @Autowired
-    public AnimalService(PersonService personService) {
+    public AnimalService(AnimalRepository animalRepository, PersonService personService) {
+        this.animalRepository = animalRepository;
         this.personService = personService;
     }
 
     public Animal create(Animal animal, Integer ownerId) {
-        var owner = this.personService.read(ownerId);
-        animal.setOwner(owner);
-
-        //TODO: save entity on db
+        var owner = Optional.of(this.personService.read(ownerId));
+        owner.ifPresent(animal::setOwner);
+        this.animalRepository.save(animal);
 
         return animal;
     }
 
     public Animal read(Integer id) {
-        //TODO: get entity from db
-
-        return Animal.builder()
-            .name("Norka")
-            .owner(Person.builder().name("My").build())
-            .build()
-        ;
+        return this.animalRepository.findById(id).orElse(null);
     }
 
     public boolean update(Animal receivedAnimal) {
@@ -52,14 +48,14 @@ public class AnimalService {
             isHasChangeInEntity = true;
         }
 
-        //TODO: save change in entity on db
+        if (isHasChangeInEntity) {
+            this.animalRepository.save(existAnimal);
+        }
 
         return isHasChangeInEntity;
     }
 
     public void delete(Integer id) {
-        var animal = this.read(id);
-
-        //TODO: remove entity from db
+        this.animalRepository.deleteById(id);
     }
 }
