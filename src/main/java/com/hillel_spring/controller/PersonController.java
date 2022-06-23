@@ -21,14 +21,14 @@ public class PersonController {
         return this.personService.read(id);
     }
 
-    @PostMapping(produces = "application/json")
-    public @ResponseBody boolean update(@RequestBody Person person) {
-        return this.personService.update(person);
-    }
-
     @PutMapping(produces = "application/json")
     public @ResponseBody Person create(@RequestBody Person person) {
         return this.personService.create(person);
+    }
+
+    @PostMapping(produces = "application/json")
+    public @ResponseBody boolean update(@RequestBody Person person) {
+        return this.personService.update(person);
     }
 
     @DeleteMapping(value = "/{id}")
