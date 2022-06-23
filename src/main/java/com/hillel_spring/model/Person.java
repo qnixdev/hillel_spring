@@ -2,12 +2,14 @@ package com.hillel_spring.model;
 
 import lombok.Builder;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
 
 import java.util.Collection;
 
 @Builder
 @ToString
 public class Person {
+    @Id
     private Integer id;
     private String name;
     private Collection<Animal> animals;
