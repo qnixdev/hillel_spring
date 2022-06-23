@@ -14,12 +14,13 @@ public class AnimalService {
         this.personService = personService;
     }
 
-    public Animal create(String animalName, Person owner) {
-        return Animal.builder()
-            .name(animalName)
-            .owner(owner)
-            .build()
-        ;
+    public Animal create(Animal animal, Integer ownerId) {
+        var owner = this.personService.read(ownerId);
+        animal.setOwner(owner);
+
+        //TODO: save entity on db
+
+        return animal;
     }
 
     public Animal read(Integer id) {
@@ -27,23 +28,31 @@ public class AnimalService {
 
         return Animal.builder()
             .name("Norka")
-            .owner(this.personService.create("My"))
+            .owner(Person.builder().name("My").build())
             .build()
         ;
     }
 
-    public boolean update(Animal animal, String animalName, Person owner) {
+    public boolean update(Animal receivedAnimal) {
+        var existAnimal = this.read(receivedAnimal.getId());
+
+        if (null == existAnimal) {
+            return false;
+        }
+
         boolean isHasChangeInEntity = false;
 
-        if (!animal.getName().equals(animalName)) {
-            animal.setName(animal.getName());
+        if (!existAnimal.getName().equals(receivedAnimal.getName())) {
+            existAnimal.setName(receivedAnimal.getName());
             isHasChangeInEntity = true;
         }
 
-        if (!animal.getOwner().equals(owner)) {
-            animal.setOwner(owner);
+        if (!existAnimal.getOwner().equals(receivedAnimal.getOwner())) {
+            existAnimal.setOwner(receivedAnimal.getOwner());
             isHasChangeInEntity = true;
         }
+
+        //TODO: save change in entity on db
 
         return isHasChangeInEntity;
     }
@@ -51,6 +60,6 @@ public class AnimalService {
     public void delete(Integer id) {
         var animal = this.read(id);
 
-        //TODO: remove from db
+        //TODO: remove entity from db
     }
 }

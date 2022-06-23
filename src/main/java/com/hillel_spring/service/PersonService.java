@@ -5,11 +5,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
-    public Person create(String name) {
-        return Person.builder()
-            .name(name)
-            .build()
-        ;
+    public Person create(Person person) {
+        //TODO: save entity on db
+
+        return person;
     }
 
     public Person read(Integer id) {
@@ -21,13 +20,21 @@ public class PersonService {
         ;
     }
 
-    public boolean update(Person person, String name) {
+    public boolean update(Person receivedPerson) {
+        var existPerson = this.read(receivedPerson.getId());
+
+        if (null == existPerson) {
+            return false;
+        }
+
         boolean isHasChangeInEntity = false;
 
-        if (!person.getName().equals(name)) {
-            person.setName(name);
+        if (!existPerson.getName().equals(receivedPerson.getName())) {
+            existPerson.setName(receivedPerson.getName());
             isHasChangeInEntity = true;
         }
+
+        //TODO: save change in entity on db
 
         return isHasChangeInEntity;
     }
@@ -35,6 +42,6 @@ public class PersonService {
     public void delete(Integer id) {
         var person = this.read(id);
 
-        //TODO: remove from db
+        //TODO: remove entity from db
     }
 }

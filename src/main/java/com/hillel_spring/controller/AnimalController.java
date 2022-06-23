@@ -22,14 +22,14 @@ public class AnimalController {
         return this.animalService.read(id);
     }
 
-    @PostMapping(produces = "application/json")
-    public @ResponseBody boolean update(@RequestBody Animal animal, String name, Person owner) {
-        return this.animalService.update(animal, name, owner);
+    @PutMapping(produces = "application/json")
+    public @ResponseBody Animal create(@RequestBody Animal animal, Integer ownerId) {
+        return this.animalService.create(animal, ownerId);
     }
 
-    @PutMapping(produces = "application/json")
-    public @ResponseBody Animal create(@RequestBody String name, Person owner) {
-        return this.animalService.create(name, owner);
+    @PostMapping(produces = "application/json")
+    public @ResponseBody boolean update(@RequestBody Animal animal) {
+        return this.animalService.update(animal);
     }
 
     @DeleteMapping(value = "/{id}")
