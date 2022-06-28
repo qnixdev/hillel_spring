@@ -1,23 +1,27 @@
 package com.hillel_spring.service;
 
 import com.hillel_spring.model.Person;
+import com.hillel_spring.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
+    private final PersonRepository personRepository;
+
+    @Autowired
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
     public Person create(Person person) {
-        //TODO: save entity on db
+        this.personRepository.save(person);
 
         return person;
     }
 
     public Person read(Integer id) {
-        //TODO: get entity from db
-
-        return Person.builder()
-            .name("My")
-            .build()
-        ;
+        return this.personRepository.findById(id).orElse(null);
     }
 
     public boolean update(Person receivedPerson) {
@@ -34,14 +38,14 @@ public class PersonService {
             isHasChangeInEntity = true;
         }
 
-        //TODO: save change in entity on db
+        if (isHasChangeInEntity) {
+            this.personRepository.save(existPerson);
+        }
 
         return isHasChangeInEntity;
     }
 
     public void delete(Integer id) {
-        var person = this.read(id);
-
-        //TODO: remove entity from db
+        this.personRepository.deleteById(id);
     }
 }

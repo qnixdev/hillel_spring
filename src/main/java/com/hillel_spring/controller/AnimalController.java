@@ -1,7 +1,6 @@
 package com.hillel_spring.controller;
 
 import com.hillel_spring.model.Animal;
-import com.hillel_spring.model.Person;
 import com.hillel_spring.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
