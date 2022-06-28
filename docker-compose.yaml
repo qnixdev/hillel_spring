@@ -17,6 +17,30 @@ services:
         networks:
             - hillel_net
 
+    # Redis service
+    redis-service:
+        container_name: hillel-redis
+        image: redis:${REDIS_VERSION}-alpine
+        user: ${UID}:${GID}
+        volumes:
+            - ./.docker/data/redis:/data
+        ports:
+            - '6380:6379'
+        networks:
+            - hillel_net
+        depends_on:
+            - database-service
+        command:
+            - 'redis-server'
+            - '--loglevel ${REDIS_LOGLEVEL}'
+            - '--databases 2'
+            - '--save 900 1'
+            - '--save 300 10'
+            - '--save 60 10000'
+            - '--maxmemory ${REDIS_MAXMEM}'
+            - '--maxmemory-policy ${REDIS_POLICY}'
+            - '--requirepass ${REDIS_PASS}'
+
 # Docker networks
 networks:
     hillel_net:

@@ -11,7 +11,7 @@ help:
 	@echo "  rmi                 Remove containers"
 
 init:
-	-@mkdir -p ./.docker/data/postgres
+	-@mkdir -p ./.docker/data/postgres ./.docker/data/redis
 	@docker-compose -f ./docker-compose.yaml --env-file ./.docker/.env up -d --build
 
 up:
@@ -22,6 +22,7 @@ down:
 
 clean:
 	-@docker rm $$(docker stop hillel-postgres)
+	-@docker rm $$(docker stop hillel-redis)
 
 prune:
 	@docker system prune -f
