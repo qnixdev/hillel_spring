@@ -14,5 +14,5 @@ public class Animal {
     @Id
     private Integer id;
     private String name;
-    private Person owner;
+    private Integer personId;
 }

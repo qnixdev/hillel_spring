@@ -29,7 +29,7 @@ SET default_table_access_method = heap;
 -- Name: person; Type: TABLE; Schema: public; Owner: hillel
 --
 CREATE TABLE public.person (
-    id integer NOT NULL,
+    id INTEGER NOT NULL,
     name VARCHAR(63) NOT NULL,
     PRIMARY KEY(id)
 );
@@ -38,7 +38,7 @@ CREATE TABLE public.person (
 -- Name: animal; Type: TABLE; Schema: public; Owner: hillel
 --
 CREATE TABLE public.animal (
-    id integer NOT NULL,
+    id INTEGER NOT NULL,
     name VARCHAR(63) NOT NULL,
     person_id INTEGER DEFAULT NULL,
     PRIMARY KEY(id)

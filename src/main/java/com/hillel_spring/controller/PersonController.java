@@ -4,10 +4,9 @@ import com.hillel_spring.model.Person;
 import com.hillel_spring.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/person")
 public class PersonController {
     private final PersonService personService;
@@ -17,24 +16,24 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping(value = "/{id}")
-    @Cacheable(value = "id")
-    public @ResponseBody Person get(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    @Cacheable("id")
+    public Person get(@PathVariable Integer id) {
         return this.personService.read(id);
     }
 
-    @PutMapping(produces = "application/json")
-    public @ResponseBody Person create(@RequestBody Person person) {
+    @PutMapping
+    public Person create(@RequestBody Person person) {
         return this.personService.create(person);
     }
 
-    @PostMapping(produces = "application/json")
-    public @ResponseBody boolean update(@RequestBody Person person) {
+    @PostMapping
+    public boolean update(@RequestBody Person person) {
         return this.personService.update(person);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public @ResponseBody void delete(@PathVariable Integer id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
         this.personService.delete(id);
     }
 }
