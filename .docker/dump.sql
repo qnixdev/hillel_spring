@@ -45,3 +45,18 @@ CREATE TABLE public.animal (
 );
 CREATE INDEX IDX_225858D0396DF84D ON public.animal (person_id);
 ALTER TABLE public.animal ADD CONSTRAINT FK_225858D0396DF84D FOREIGN KEY (person_id) REFERENCES public.person (id) NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+--
+-- Name: user; Type: TABLE; Schema: public; Owner: hillel
+--
+CREATE TABLE public.user (
+    id INTEGER NOT NULL,
+    email VARCHAR(63) NOT NULL,
+    password VARCHAR(63) NOT NULL,
+    first_name VARCHAR(255) DEFAULT NULL,
+    last_name VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+    updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
+    PRIMARY KEY(id)
+);
+CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON public.user (email);
