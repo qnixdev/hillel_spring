@@ -3,6 +3,7 @@ package com.hillel_spring.controller;
 import com.hillel_spring.model.Person;
 import com.hillel_spring.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
+    @Cacheable("id")
     public Person get(@PathVariable Integer id) {
         return this.personService.read(id);
     }
