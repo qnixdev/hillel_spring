@@ -15,7 +15,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfiguration(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public SecurityConfiguration(
+        UserDetailsService userDetailsService,
+        PasswordEncoder passwordEncoder
+    ) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
