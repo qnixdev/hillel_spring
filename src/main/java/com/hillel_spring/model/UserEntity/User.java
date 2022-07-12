@@ -1,38 +1,43 @@
 package com.hillel_spring.model.UserEntity;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
 @ToString
-@Table
+@Entity
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "email", length = 63, nullable = false)
     private String email;
 
+    @Column(name = "password", length = 63, nullable = false)
     private String password;
 
-    @Column("first_name")
-    private String firstName;
+    @Column(name = "first_name", length = 255)
+    private String firstName = null;
 
-    @Column("last_name")
-    private String lastName;
+    @Column(name = "last_name", length = 255)
+    private String lastName = null;
 
-    @Column("created_at")
+    @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column("updated_at")
+    @Column(name = "updated_at")
     private Date updatedAt = null;
 
     @Override
