@@ -18,8 +18,8 @@ public class AnimalService {
     }
 
     public Animal create(Animal animal) {
-        var person = Optional.of(this.personService.read(animal.getPersonId()));
-        person.ifPresent(p -> animal.setPersonId(p.getId()));
+        var person = Optional.of(this.personService.read(animal.getPerson().getId()));
+        person.ifPresent(animal::setPerson);
         this.animalRepository.save(animal);
 
         return animal;
@@ -43,8 +43,8 @@ public class AnimalService {
             isHasChangeInEntity = true;
         }
 
-        if (!existAnimal.getPersonId().equals(receivedAnimal.getPersonId())) {
-            existAnimal.setPersonId(receivedAnimal.getPersonId());
+        if (!existAnimal.getPerson().equals(receivedAnimal.getPerson())) {
+            existAnimal.setPerson(receivedAnimal.getPerson());
             isHasChangeInEntity = true;
         }
 

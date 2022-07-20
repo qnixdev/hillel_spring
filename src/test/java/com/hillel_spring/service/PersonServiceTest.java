@@ -48,7 +48,7 @@ public class PersonServiceTest {
         ;
 
         Assertions.assertTrue(this.personService.update(receivedPerson));
-        Mockito.verify(this.personRepository).save(receivedPerson);
+        Mockito.verify(this.personRepository).save(Mockito.any());
     }
 
     @Test

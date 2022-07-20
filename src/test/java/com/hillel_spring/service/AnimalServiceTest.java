@@ -17,8 +17,13 @@ public class AnimalServiceTest {
 
     @Test
     public void testCreate() {
-        var dog = Animal.builder().id(123).name("Pitbull").personId(6).build();
         var dogOwner = Person.builder().id(333).name("Mykola").build();
+        var dog = Animal.builder()
+            .id(123)
+            .name("Pitbull")
+            .person(dogOwner)
+            .build()
+        ;
 
         Mockito
             .when(this.personRepository.findById(Mockito.anyInt()))
@@ -36,7 +41,12 @@ public class AnimalServiceTest {
 
     @Test
     public void testRead() {
-        var dog = Animal.builder().id(123).name("Pitbull").personId(6).build();
+        var dog = Animal.builder()
+            .id(123)
+            .name("Pitbull")
+            .person(Person.builder().id(333).name("Mykola").build())
+            .build()
+        ;
 
         Mockito
             .when(this.animalRepository.findById(Mockito.anyInt()))
@@ -49,8 +59,18 @@ public class AnimalServiceTest {
 
     @Test
     public void testUpdate() {
-        var receivedDog = Animal.builder().id(123).name("Pitbull").personId(6).build();
-        var existDog = Animal.builder().id(123).name("Pitbull").personId(777).build();
+        var receivedDog = Animal.builder()
+            .id(123)
+            .name("Pitbull")
+            .person(Person.builder().id(6).name("Mykola").build())
+            .build()
+        ;
+        var existDog = Animal.builder()
+            .id(123)
+            .name("Pitbull")
+            .person(Person.builder().id(777).name("Mykola").build())
+            .build()
+        ;
 
         Mockito
             .when(this.animalRepository.findById(Mockito.any()))
@@ -63,7 +83,12 @@ public class AnimalServiceTest {
 
     @Test
     public void testDelete() {
-        var dog = Animal.builder().id(123).name("Pitbull").personId(6).build();
+        var dog = Animal.builder()
+            .id(123)
+            .name("Pitbull")
+            .person(Person.builder().id(6).name("Mykola").build())
+            .build()
+        ;
 
         this.animalService.delete(dog.getId());
 
